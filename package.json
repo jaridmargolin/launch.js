@@ -1,0 +1,33 @@
+{
+  "name": "launch.js",
+  "description": "Open and manage child windows (will persist references even on refresh).",
+  "author": "Jarid Margolin <jaridmargolin@gmail.com>",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jaridmargolin/launch.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaridmargolin/launch.js"
+  },
+  "bugs": {
+    "url": "https://github.com/jaridmargolin/launch.js/issues"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "main": "dist/common/launch.js",
+  "dependencies": {
+    "doc-ready.js": "~0.0.1"
+  },
+  "devDependencies": {
+    "chai": "~3.2.0",
+    "chai-as-promised": "~5.1.0",
+    "chromedriver": "~2.19.0",
+    "easy-build": "~0.2.1",
+    "jquery": "~2.1.4",
+    "mocha": "~2.3.2",
+    "proclaim": "~3.3.1",
+    "selenium-webdriver": "~2.46.1",
+    "sinon": "~1.16.1"
+  },
+  "license": "MIT"
+}

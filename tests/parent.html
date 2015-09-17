@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- meta -->
+    <meta charset="utf-8" />
+    <title>launch.js - Parent</title>
+  </head>
+
+  <body>
+
+    <!-- content -->
+    <h1>Parent</h1>
+    <button id="launch">Launch</button>
+
+    <!-- tests -->
+    <script src="../dist/launch.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+
+    <script>
+      $(function () {
+        var launchOpts = 'width=300, height=300, menubar=no,location=no,resizable=no,scrollbars=no,status=no';
+
+        var onLaunchClose = function () {
+          window['launchjs-session-closed'] = true;
+        };
+
+        $('#launch').on('click', function (evt) {
+          evt.preventDefault();
+          launch.open('child.html', 'child', launchOpts);
+          launch.addCloseHandler('child', onLaunchClose);
+        });
+
+        // grab any active launch session and attach our close handler.
+        launch.get('child', function (err, launchSession) {
+          if (!err) { launch.addCloseHandler('child', onLaunchClose); };
+        });
+      });
+    </script>
+
+  </body>
+</html>
