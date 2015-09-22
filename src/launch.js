@@ -105,6 +105,13 @@ window.launchJS = {
  * launch
  * ---------------------------------------------------------------------------*/
 
+/**
+ * @global
+ * @public
+ * @namespace launch
+ *
+ * @desc Open and manage child windows (will persist references even on refresh).
+ */
 return {
 
   /**
