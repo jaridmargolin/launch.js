@@ -27,7 +27,7 @@ window.launchJS = {
 
   inject: function (windowDocument, code, name) {
     var id = "launchjs-script-" + name;
-    var scriptTag = document.getElementById(id);
+    var scriptTag = windowDocument.getElementById(id);
 
     if (scriptTag) {
       return;
