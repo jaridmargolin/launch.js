@@ -60,8 +60,8 @@ window.launchJS = {
     }
 
     script += "window.launchJS.intervals['" + name + "'] = window.setInterval(function () {";
-    script += "  if (!child.launchJS) {";
-    script += "    window.launchJS.injectChildInterval(child, " + name + ");";
+    script += "  if (!child.launchJSChild) {";
+    script += "    window.launchJS.injectChildInterval(child, '" + name + "');";
     script += "  }";
     script += "  if (child.closed) {";
     script += "    window.launchJS.closeChild('" + name + "');";
@@ -72,10 +72,10 @@ window.launchJS = {
     window.launchJS.inject(window.document, script, name);
   },
 
-  injectChildInterval: function (child) {
+  injectChildInterval: function (child, name) {
     var script = "(function () {";
     script += "var parent = window.opener;";
-    script += "window.launchJS = window.setInterval(function () {";
+    script += "window.launchJSChild = window.setInterval(function () {";
     script += "  if (parent.launchJS && !parent.launchJS.intervals[window.name]) {";
     script += "    parent.launchJS.injectParentInterval(window.name);";
     script += "  }";
