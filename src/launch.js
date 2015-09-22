@@ -25,18 +25,26 @@ window.launchJS = {
   instances: {},
   handlers: {},
 
+  getScriptId: function (name) {
+    return "launchjs-script-" + name;
+  },
+
+  getScriptTag: function (windowDocument, name) {
+    var id = window.launchJS.getScriptId(name);
+    return windowDocument.getElementById(id);
+  },
+
   inject: function (windowDocument, code, name) {
-    var id = "launchjs-script-" + name;
-    var scriptTag = windowDocument.getElementById(id);
+    var scriptTag = window.launchJS.getScriptTag(windowDocument, name);
 
     if (scriptTag) {
       return;
     }
 
     scriptTag = windowDocument.createElement('script');
+    scriptTag.id = window.launchJS.getScriptId(name);
     scriptTag.type = "text/javascript";
     scriptTag.text = code;
-    scriptTag.id = id;
 
     docReady(windowDocument, function () {
       windowDocument.body.appendChild(scriptTag);
@@ -86,6 +94,9 @@ window.launchJS = {
   },
 
   closeChild: function (name) {
+    var scriptTag = window.launchJS.getScriptTag(window.document, name);
+    window.document.body.removeChild(scriptTag);
+
     window.clearInterval(window.launchJS.intervals[name]);
 
     var closeHandler = window.launchJS.handlers[name];

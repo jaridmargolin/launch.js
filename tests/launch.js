@@ -117,7 +117,7 @@ var hasExecutedCallback = function () {
   var script = "return !!window['launchjs-session-closed'];";
 
   return wait(1000).then(function () {
-    return driver.executeScript(script)
+    return driver.executeScript(script);
   });
 };
 
