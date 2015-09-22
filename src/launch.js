@@ -175,7 +175,10 @@ return {
    */
   get: function (strWindowName, callback) {
     var session = window.launchJS.instances[strWindowName];
-    var timeout = session ? 0 : 10;
+    // We default to 1000 due to browsers buffering interval/timeout events occruing
+    // in non active tabs. Attempting to fetch any faster results in the get returning
+    // an error because the child element has yet to attach itself on the parent.
+    var timeout = session ? 0 : 1000;
 
     setTimeout(function () {
       session = window.launchJS.instances[strWindowName];
