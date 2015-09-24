@@ -20,6 +20,7 @@ var webdriver = require('selenium-webdriver');
 var expect = chai.expect;
 var By = webdriver.By;
 var until = webdriver.until;
+var promise = webdriver.promise;
 
 chai.should();
 chai.use(chaiAsPromised);
@@ -121,6 +122,17 @@ var hasExecutedCallback = function () {
   });
 };
 
+var getScriptIds = function () {
+  return driver.findElements(By.tagName('script'))
+    .then(getIds);
+};
+
+var getIds = function (elems) {
+  return promise.map(elems, function (elem) {
+    return elem.getAttribute('id');
+  });
+};
+
 
 /* -----------------------------------------------------------------------------
  * test
@@ -151,6 +163,15 @@ describe('launch.js', function () {
   it('Should store reference to child on parent window.', function () {
     return launchWindow()
       .then(hasChildReference).should.eventually.be.true;
+  });
+
+  it('Should only attach inject one script tag on the child window.', function () {
+    return launchWindow()
+      .then(getChildWindow)
+      .then(getScriptIds)
+      .then(function (ids) {
+        return ids.length;
+      }).should.eventually.equal(2);
   });
 
   it('Should store reference to child on parent refresh.', function () {

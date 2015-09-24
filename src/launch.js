@@ -24,6 +24,7 @@ window.launchJS = {
   intervals: {},
   instances: {},
   handlers: {},
+  pending: {},
 
   getScriptId: function (name) {
     return "launchjs-script-" + name;
@@ -46,7 +47,9 @@ window.launchJS = {
     scriptTag.type = "text/javascript";
     scriptTag.text = code;
 
+    window.launchJS.pending[name] = true;
     docReady(windowDocument, function () {
+      delete window.launchJS.pending[name];
       windowDocument.body.appendChild(scriptTag);
     });
   },
@@ -68,7 +71,7 @@ window.launchJS = {
     }
 
     script += "window.launchJS.intervals['" + name + "'] = window.setInterval(function () {";
-    script += "  if (!child.launchJSChild) {";
+    script += "  if (!child.launchJSChild && !window.launchJS.pending['" + name + "']) {";
     script += "    window.launchJS.injectChildInterval(child, '" + name + "');";
     script += "  }";
     script += "  if (child.closed) {";
