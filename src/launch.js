@@ -71,7 +71,7 @@ window.launchJS = {
     }
 
     script += "window.launchJS.intervals['" + name + "'] = window.setInterval(function () {";
-    script += "  if (!child.launchJSChild && !window.launchJS.pending['" + name + "']) {";
+    script += "  if (!child.launchJSChild && !window.launchJS.pending['" + name + "'] && child.location.host !== '') {";
     script += "    window.launchJS.injectChildInterval(child, '" + name + "');";
     script += "  }";
     script += "  if (child.closed) {";
